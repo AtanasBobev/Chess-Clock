@@ -1,35 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
-*{
-font-family: 'Source Sans Pro', sans-serif;
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
 }
-body{
+
+body {
   background-color: #E8E8E8;
 }
-.col{
-  margin:1vmax;
+
+.col {
+  margin: 1vmax;
 }
-.btn{
-  font-size:2vmax;
+
+.btn {
+  font-size: 2vmax;
 }
-h1{
-  font-size:6vmax;
+
+h1 {
+  font-size: 6vmax;
   margin-bottom: 2vh;
 }
+
 .container, .panel-body, .second {
-position: absolute;
+  position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-.panel-body{
-  padding:1vmax;
-  font-size:2vmax;
-  left:20%;
+
+.panel-body {
+  padding: 1vmax;
+  font-size: 1.5vmax;
+  left: 20%;
 }
-#main > div > div > label{
+
+#main > div > div > label {
+  font-size: 1.5vmax;
+}
+
+.second {
+  left: 70%;
+}
+
+.clock{
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size:20vmax;
+}
+
+#secondClock{
+  left:75%;
+}
+#firstClock{
+  left:25%;
+}
+
+#main > div.panel-body > button.btn.btn-outline-primary, #main > div.panel-body > button.btn.btn-primary{
   font-size:1.5vmax;
 }
-.second{
-  left: 70%;
+.noselect{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none; 
 }

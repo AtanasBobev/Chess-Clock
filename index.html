@@ -68,10 +68,21 @@ The second player, whose name is <input type="text"  maxlength="50" class="form-
   <label class="custom-control-label" for="themeToggles">Dark theme</label>
 </div>
 
+<button onClick='setupGame.resetForm()' type="button" class="btn btn-outline-primary">Reset</button>
+<button onClick='setupGame.initiateGame()' type="button" class="btn btn-primary">Start</button>
 </div>
 <div class='second'>
 This will show clever information
 </div>
+
+
+</div>
+<div class='d-none' id='desktopClock'>
+  <div id='firstClock' class='noselect clock'>10:00</div>
+  <div id='secondClock' class='noselect clock'>10:00</div>
+  </div>
   </body>
-<script src='script.js'></script>
+  <script src='script.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha256-KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms=" crossorigin="anonymous"></script>
   </html>

@@ -52,8 +52,12 @@ let setupGame = {
                 confirmButtonText: 'Start',
                 cancelButtonText: 'Back'
             }).then((result) => {
-                if (result.value) {} else {
-                    alert("Getting you back!")
+                if (result.value) {
+                    inGame.initialEstablish();
+                    inGame.startTimer();
+                } else {
+display.hideDesktopClock();
+display.showSelection();
                 }
             })
 
@@ -123,5 +127,65 @@ let inGame = {
     },
     secondsToMinutes: function(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2)
+    },
+    startTimer: function() {
+        Player1Interval = setInterval(this.decreaseTimePlayer1, 1000);
+        document.querySelector("#firstClock").style.textDecoration='underline';
+    },
+    decreaseTimePlayer1: function() {
+        inGame.timeLeftPlayer1--;
+        if (inGame.timeLeftPlayer1 <= 0) {
+            clearInterval(Player1Interval);
+            document.querySelector("#firstClock").innerText = "No time left!";
+            document.querySelector("#firstClock").style.fontSize='5vmax';
+            document.querySelector("#firstClock").style.color='red';
+            inGame.game=false;
+        } else {
+            document.querySelector("#firstClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer1));
+        }
+    },
+    Player1IntervalRunning:true,
+    Player2IntervalRunning:false,
+    game:true,
+    decreaseTimePlayer2: function() {
+        inGame.timeLeftPlayer2--;
+        if (inGame.timeLeftPlayer2 <= 0) {
+              clearInterval(Player2Interval);
+            document.querySelector("#secondClock").innerText = "No time left!";
+            document.querySelector("#secondClock").style.fontSize='5vmax';
+            document.querySelector("#secondClock").style.color='red';
+            inGame.game=false;
+        } else {
+            document.querySelector("#secondClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer2));
+        }
+    },
+
+    switchRole:function(){
+      if(inGame.game){
+      if(inGame.Player1IntervalRunning){
+      clearInterval(Player1Interval);
+      Player2Interval = setInterval(inGame.decreaseTimePlayer2, 1000);
+      inGame.Player1IntervalRunning=false;
+      inGame.Player2IntervalRunning=true;
+      document.querySelector("#firstClock").style.textDecoration='none';
+      document.querySelector("#secondClock").style.textDecoration='underline';
+    }else{
+      document.querySelector("#firstClock").style.textDecoration='underline';
+      document.querySelector("#secondClock").style.textDecoration='none';
+      clearInterval(Player2Interval);
+      Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
+      inGame.Player2IntervalRunning=false;
+      inGame.Player1IntervalRunning=true;
+       }
+    }else{
+      clearInterval(Player1Interval);
+      clearInterval(Player2Interval);
+    }
+  }
+}
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+inGame.switchRole();
     }
 }
+let Player1Interval=0, Player2Interval=0;

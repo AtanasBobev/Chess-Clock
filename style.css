@@ -15,7 +15,7 @@ h1{
   font-size:6vmax;
   margin-bottom: 2vh;
 }
-.container, .panel-body {
+.container, .panel-body, .second {
 position: absolute;
   left: 50%;
   top: 50%;
@@ -25,4 +25,11 @@ position: absolute;
 .panel-body{
   padding:1vmax;
   font-size:2vmax;
+  left:20%;
+}
+#main > div > div > label{
+  font-size:1.5vmax;
+}
+.second{
+  left: 70%;
 }

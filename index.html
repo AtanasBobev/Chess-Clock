@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href='style.css'>
   </head>
   <body>
@@ -10,43 +11,43 @@
           <h1 class='text-center'>Choose your game type</h1>
       <br>
       <div class="row">
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(1,0,0)' class="col btn btn-dark">
           1 + 0 <br> Bullet
         </div>
-        <div class="col btn btn-dark">
+        <div  onClick='setupGame.dataEntry(2,0,1)' class="col btn btn-dark">
           2 + 1 <br> Bullet
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(3,0,0)'class="col btn btn-dark">
           3 + 0 <br> Blitz
         </div>
       </div>
       <div class="row">
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(3,0,2)' class="col btn btn-dark">
           3 + 2 <br> Blitz
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(5,0,0)' class="col btn btn-dark">
           5 + 0 <br> Blitz
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(5,0,3)' class="col btn btn-dark">
           5 + 3 <br> Blitz
         </div>
       </div>
       <div class="row">
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(10,0,0)' class="col btn btn-dark">
           10 + 0 <br> Rapid
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(10,0,5)' class="col btn btn-dark">
           10 + 5 <br> Rapid
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(15,0,10)' class="col btn btn-dark">
           15 + 10 <br> Rapid
         </div>
       </div>
       <div class="row">
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(30,0,0)' class="col btn btn-dark">
           30 + 0 <br> Classical
         </div>
-        <div class="col btn btn-dark">
+        <div onClick='setupGame.dataEntry(30,0,20)' class="col btn btn-dark">
           30 + 20 <br> Classical
         </div>
         <div class="col btn btn-dark align-items-center">
@@ -56,8 +57,20 @@
       </div>
       <div id='main' class="d-none">
   <div class="panel-body">
-The first player, whoose name is <input type="text" class="form-control" id="usr"> has <input type="number" class="form-control" id="usr"> minutes and <input min='0' max='9999' type="number" class="form-control" id="usr"> seconds.
-  </div>
+The first player, whose name is <input type="text" maxlength="50" class="form-control" value='Player 1' id="name1"> has <input type="number" class="form-control" id="minutesPlayer1"> minutes and <input min='0' max='9999' type="number" class="form-control" id="secondsPlayer1"> seconds with <input min='0' max='9999' type="number" class="form-control" id="additionalSeconds1"> seconds added for each move.<hr>
+The second player, whose name is <input type="text"  maxlength="50" class="form-control" value='Player 2' id="name2"> has <input type="number" class="form-control" id="minutesPlayer2"> minutes and <input min='0' max='9999' type="number" class="form-control" id="secondsPlayer2"> seconds with <input min='0' max='9999' type="number" class="form-control" id="additionalSeconds2"> seconds added for each move.<hr>
+<div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="soundsToggle">
+  <label class="custom-control-label" for="soundsToggle">Sounds</label>
+</div>
+<div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="themeToggles">
+  <label class="custom-control-label" for="themeToggles">Dark theme</label>
+</div>
+
+</div>
+<div class='second'>
+This will show clever information
 </div>
   </body>
 <script src='script.js'></script>

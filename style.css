@@ -35,6 +35,10 @@ h1 {
   left: 20%;
 }
 
+#desktopClock{
+overflow:hidden;
+}
+
 #main > div > div > label {
   font-size: 1.5vmax;
 }
@@ -67,5 +71,34 @@ h1 {
   -webkit-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
-  user-select: none; 
+  user-select: none;
+}
+#pause{
+  width: 8vw;
+    position: absolute;
+    top: 88%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#name1Game,#name2Game,#firstClock,#secondClock{
+  transition: 1s;
+}
+#name1Game{
+  color:grey;
+  position: absolute;
+    top: 22%;
+    left: 25%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 7vmax;
+}
+#name2Game{
+  color:grey;
+  position: absolute;
+    top: 22%;
+    left: 75%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 7vmax;
 }

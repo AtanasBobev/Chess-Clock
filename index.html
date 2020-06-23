@@ -77,12 +77,16 @@ This will show clever information
 
 
 </div>
-<div onClick='inGame.switchRole()' class='d-none' id='desktopClock'>
-  <div id='firstClock' class='noselect clock'>10:00</div>
-  <div id='secondClock' class='noselect clock'>10:00</div>
+<div class='d-none' id='desktopClock'>
+  <div id='name1Game'>Player 1</div>
+  <div onClick='inGame.switchRole()' id='firstClock' class='noselect clock'>Loading...</div>
+  <div id='name2Game'>Player 1</div>
+  <div onClick='inGame.switchRole()' id='secondClock' class='noselect clock'>Loading...</div>
+  <img id='pause' onClick='inGame.pauseGame()' src='Images/Pause.svg'>
   </div>
   </body>
   <script src='script.js'></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha256-KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms=" crossorigin="anonymous"></script>
   </html>

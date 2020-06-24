@@ -81,6 +81,14 @@ overflow:hidden;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+#restart{
+  width: 7.5vw;
+    position: absolute;
+    top: 88%;
+    left: 35%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
 #name1Game,#name2Game,#firstClock,#secondClock{
   transition: 1s;
 }

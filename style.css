@@ -118,3 +118,35 @@ overflow:hidden;
     transform: translate(-50%, -50%);
     font-size: 7vmax;
 }
+#show1{
+  position: absolute;
+    top: 10%;
+    left: 25%;
+    font-size: 4vmax;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#show2{
+  position: absolute;
+    top: 10%;
+    left: 75%;
+    font-size: 4vmax;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#timeEnd2{
+  position: absolute;
+    top: 20%;
+    left: 75%;
+    font-size: 4vmax;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#timeEnd1{
+  position: absolute;
+    top: 20%;
+    left: 25%;
+    font-size: 4vmax;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}

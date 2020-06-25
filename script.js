@@ -137,6 +137,7 @@ let inGame = {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2)
     },
     startTimer: function() {
+      startTime=(new Date).getTime()/10000;
         Player1Interval = setInterval(this.decreaseTimePlayer1, 1000);
         document.querySelector("#firstClock").style.textDecoration = 'underline';
         document.querySelector("#name1Game").style.color = 'black';
@@ -191,6 +192,8 @@ let inGame = {
     switchRole: function() {
         if (inGame.game  && !inGame.pausedState) {
             if (inGame.Player1IntervalRunning) {
+              time1.push((Math.abs(startTime-((new Date).getTime()/10000)))*10)
+              startTime=(new Date).getTime()/10000;
                 inGame.timeLeftPlayer1 = inGame.timeLeftPlayer1 + Number(document.querySelector("#additionalSeconds1").value);
                 document.querySelector("#firstClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer1));
                 clearInterval(Player1Interval);
@@ -203,6 +206,8 @@ let inGame = {
                 document.querySelector("#secondClock").style.color='black';
                 document.querySelector("#firstClock").style.color='grey';
             } else {
+              time2.push((Math.abs((startTime - (new Date).getTime()/10000)))*10);
+              startTime=(new Date).getTime()/10000;
                 inGame.timeLeftPlayer2 = inGame.timeLeftPlayer2 + Number(document.querySelector("#additionalSeconds2").value)
                 document.querySelector("#secondClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer2));
                 document.querySelector("#name1Game").style.color = 'black';
@@ -225,6 +230,7 @@ let inGame = {
     pausedState: false,
     pauseGame: function() {
         if (!this.pausedState) {
+          startTime=(new Date).getTime()/10000;
             if (inGame.Player1IntervalRunning) {
                 clearInterval(Player1Interval);
             } else {
@@ -384,16 +390,15 @@ document.querySelector("#firstClock").style.textDecoration = 'underline';
 document.querySelector("#secondClock").style.textDecoration = 'none';
 document.querySelector("#secondClock").style.color='grey';
 document.querySelector("#firstClock").style.color='black';
-
-
+startTime=(new Date).getTime()/10000;
+time1=[];
+time2=[];
 clearInterval(Player2Interval);
 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
 inGame.Player1IntervalRunning = true;
 document.querySelector("#pause").click()
               }
           })
-
-
     },
     RealStop:function(){
       Swal.fire({
@@ -402,17 +407,52 @@ document.querySelector("#pause").click()
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Start',
+          confirmButtonText: 'End',
           cancelButtonText: 'Back'
       }).then((result) => {
         if(result.value){
         display.hideDesktopClock();
         display.showDesktopSummary();
-        document.querySelector("#show1").innerText=document.querySelector("#name1").value;
-        document.querySelector("#show2").innerText=document.querySelector("#name2").value;
-        document.querySelector("#timeEnd1").innerText=document.querySelector("#firstClock").innerText;
-        document.querySelector("#timeEnd2").innerText=document.querySelector("#secondClock").innerText;
+        for(let i=1;i<time1.length+1;i++){
+          labels1.push(i);
+        }
+        for(let i=1;i<time2.length+1;i++){
+          labels2.push(i);
+        }
+        let ctx1 = document.getElementById('Player1TimeCanvas').getContext('2d');
+let chart1 = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels:labels1,
+        datasets: [{
+            label: 'Player 1 Time Per Move Comparison',
+            backgroundColor: 'green',
+            borderColor: 'rgb(255, 99, 132)',
+            data: time1
+        }]
+    },
+    options: {
+responsiveAnimationDuration:0.5,
 
+    }
+});
+let ctx2 = document.getElementById('Player2TimeCanvas').getContext('2d');
+let chart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels:labels2,
+        datasets: [{
+            label: 'Player 2 Time Per Move Comparison',
+            backgroundColor: 'red',
+            borderColor: 'rgb(255, 99, 132)',
+            data: time2
+        }]
+    },
+    options: {
+responsiveAnimationDuration:0.5,
+
+    }
+});
             }
       })
   }
@@ -425,4 +465,4 @@ document.body.onkeyup = function(e) {
     }
 }
 let Player1Interval = 0,
-    Player2Interval = 0;
+    Player2Interval = 0,time1=[],time2=[],startTime,labels1=[],labels2=[];

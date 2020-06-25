@@ -81,6 +81,14 @@ overflow:hidden;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+#stop{
+  width: 6vw;
+    position: absolute;
+    top: 88%;
+    left: 66%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
 #restart{
   width: 7.5vw;
     position: absolute;

@@ -16,6 +16,12 @@ let display = {
     },
     hideDesktopClock: function() {
         document.querySelector("#desktopClock").classList.add('d-none');
+    },
+    showDesktopSummary: function() {
+        document.querySelector("#desktopSummary").classList.remove('d-none');
+    },
+    hideDesktopSummary: function() {
+        document.querySelector("#desktopSummary").classList.add('d-none');
     }
 }
 let setupGame = {
@@ -225,11 +231,13 @@ let inGame = {
                 clearInterval(Player2Interval);
             }
             document.querySelector("#restart").classList.remove('d-none');
+            document.querySelector("#stop").classList.remove('d-none');
+
             this.pausedState = true;
             document.querySelector("#pause").src = 'Images/Play.svg'
         } else {
           document.querySelector("#restart").classList.add('d-none');
-
+          document.querySelector("#stop").classList.add('d-none');
             this.pausedState = false;
             if (inGame.Player1IntervalRunning) {
                 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
@@ -386,7 +394,28 @@ document.querySelector("#pause").click()
           })
 
 
-    }
+    },
+    RealStop:function(){
+      Swal.fire({
+          title: 'Are you sure you want to end the game?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Start',
+          cancelButtonText: 'Back'
+      }).then((result) => {
+        if(result.value){
+        display.hideDesktopClock();
+        display.showDesktopSummary();
+        document.querySelector("#show1").innerText=document.querySelector("#name1").value;
+        document.querySelector("#show2").innerText=document.querySelector("#name2").value;
+        document.querySelector("#timeEnd1").innerText=document.querySelector("#firstClock").innerText;
+        document.querySelector("#timeEnd2").innerText=document.querySelector("#secondClock").innerText;
+
+            }
+      })
+  }
 
 
 }

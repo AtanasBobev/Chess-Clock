@@ -97,6 +97,22 @@ overflow:hidden;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+#restart2{
+  width: 7.5vw;
+    position: fixed;
+    top: 90%;
+    left: 6%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#home{
+  width: 7.5vw;
+    position: fixed;
+    top: 90%;
+    left: 16%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
 #name1Game,#name2Game,#firstClock,#secondClock{
   transition: 1s;
 }

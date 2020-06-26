@@ -48,7 +48,12 @@ let setupGame = {
             document.querySelector("#firstClock").innerText = inGame.secondsToMinutes(this.TimePlayer1);
             document.querySelector("#name1Game").innerText = document.querySelector("#name1").value;
             document.querySelector("#name2Game").innerText = document.querySelector("#name2").value;
-
+            document.querySelector("#secondClock").style.textDecoration = 'none';
+            document.querySelector("#firstClock").style.textDecoration = 'underline';
+            document.querySelector("#name1Game").style.color = 'grey';
+            document.querySelector("#name2Game").style.color = 'black';
+            document.querySelector("#secondClock").style.color = 'black';
+            document.querySelector("#firstClock").style.color = 'grey';
 
             Swal.fire({
                 title: 'Are you ready to start the game?',
@@ -199,16 +204,26 @@ let inGame = {
                 clearInterval(Player1Interval);
                 Player2Interval = setInterval(inGame.decreaseTimePlayer2, 1000);
                 inGame.Player1IntervalRunning = false;
+                if(!darkTheme.enabled){
                 document.querySelector("#firstClock").style.textDecoration = 'none';
                 document.querySelector("#secondClock").style.textDecoration = 'underline';
                 document.querySelector("#name1Game").style.color = 'grey';
                 document.querySelector("#name2Game").style.color = 'black';
                 document.querySelector("#secondClock").style.color = 'black';
                 document.querySelector("#firstClock").style.color = 'grey';
+              }else{
+                document.querySelector("#name1Game").style.color = 'black';
+                document.querySelector("#name2Game").style.color = 'grey';
+                document.querySelector("#secondClock").style.textDecoration = 'underline';
+                document.querySelector("#firstClock").style.textDecoration = 'none';
+                document.querySelector("#secondClock").style.color = 'grey';
+                document.querySelector("#firstClock").style.color = 'black';
+              }
             } else {
                 time2.push((Math.abs((startTime - (new Date).getTime() / 10000))) * 10);
                 startTime = (new Date).getTime() / 10000;
-                inGame.timeLeftPlayer2 = inGame.timeLeftPlayer2 + Number(document.querySelector("#additionalSeconds2").value)
+                inGame.timeLeftPlayer2 = inGame.timeLeftPlayer2 + Number(document.querySelector("#additionalSeconds2").value);
+                if(!darkTheme.enabled){
                 document.querySelector("#secondClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer2));
                 document.querySelector("#name1Game").style.color = 'black';
                 document.querySelector("#name2Game").style.color = 'grey';
@@ -216,11 +231,20 @@ let inGame = {
                 document.querySelector("#secondClock").style.textDecoration = 'none';
                 document.querySelector("#secondClock").style.color = 'grey';
                 document.querySelector("#firstClock").style.color = 'black';
-
-
+              }else{
+                document.querySelector("#secondClock").style.textDecoration = 'none';
+                document.querySelector("#firstClock").style.textDecoration = 'underline';
+                document.querySelector("#name1Game").style.color = 'grey';
+                document.querySelector("#name2Game").style.color = 'black';
+                document.querySelector("#secondClock").style.color = 'black';
+                document.querySelector("#firstClock").style.color = 'grey';
+              }
                 clearInterval(Player2Interval);
                 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
                 inGame.Player1IntervalRunning = true;
+            }
+            if(sound.enabled){
+              sound.changePlayer();
             }
         } else {
             clearInterval(Player1Interval);
@@ -256,6 +280,9 @@ let inGame = {
     endGameToLobby: function(lost) {
         document.querySelector("#restart").classList.remove('d-none');
         inGame.pausedState = true;
+        if(sound.enabled){
+          sound.endGame();
+        }
         if (lost == 1) {
             anime({
                 targets: '#name1Game',
@@ -336,9 +363,35 @@ let inGame = {
         }
         document.querySelector("#restart").style.left = "7vw";
     },
-    reset: function() {
+    home: function() {
+        Swal.fire({
+            title: 'Are sure you would want to go to the home menu?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value) {
+                display.hideSelection();
+                display.hideDesktopSummary();
+                display.showMenu();
+            }
+        })
+    },
+    reset: function(a) {
+        display.hideDesktopSummary();
+        display.showDesktopClock();
         inGame.pausedState = true;
         inGame.game = true;
+        document.querySelector("#secondClock").style.textDecoration = 'none';
+        document.querySelector("#firstClock").style.textDecoration = 'underline';
+        document.querySelector("#name1Game").style.color = 'grey';
+        document.querySelector("#name2Game").style.color = 'black';
+        document.querySelector("#secondClock").style.color = 'black';
+        document.querySelector("#firstClock").style.color = 'grey';
         Swal.fire({
             title: 'Are sure you would want to reset the game?',
             text: "",
@@ -397,6 +450,9 @@ let inGame = {
                 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
                 inGame.Player1IntervalRunning = true;
                 document.querySelector("#pause").click()
+            } else if (a != 0) {
+                display.showDesktopSummary();
+                display.hideDesktopClock();
             }
         })
     },
@@ -413,12 +469,12 @@ let inGame = {
             if (result.value) {
                 display.hideDesktopClock();
                 display.showDesktopSummary();
-                if(inGame.timeLeftPlayer2>inGame.timeLeftPlayer1){
-                  document.querySelector("#textAnalysis").innerText=document.querySelector("#name2Game").innerText+' won the game with '+(inGame.timeLeftPlayer2-inGame.timeLeftPlayer1)+"s or "+((1-inGame.timeLeftPlayer1/inGame.timeLeftPlayer2)*100).toFixed(2)+"% difference in time."
-                }else if(inGame.timeLeftPlayer2<inGame.timeLeftPlayer1){
-                  document.querySelector("#textAnalysis").innerText=document.querySelector("#name1Game").innerText+' won the game with '+(inGame.timeLeftPlayer1-inGame.timeLeftPlayer2)+"s or "+((1-inGame.timeLeftPlayer2/inGame.timeLeftPlayer1)*100).toFixed(2)+"% difference in time."
-                }else{
-                  document.querySelector("#textAnalysis").innerText="Both players finished the game at the same time!";
+                if (inGame.timeLeftPlayer2 > inGame.timeLeftPlayer1) {
+                    document.querySelector("#textAnalysis").innerText = document.querySelector("#name2Game").innerText + ' won the game with ' + (inGame.timeLeftPlayer2 - inGame.timeLeftPlayer1) + "s or " + ((1 - inGame.timeLeftPlayer1 / inGame.timeLeftPlayer2) * 100).toFixed(2) + "% difference in time."
+                } else if (inGame.timeLeftPlayer2 < inGame.timeLeftPlayer1) {
+                    document.querySelector("#textAnalysis").innerText = document.querySelector("#name1Game").innerText + ' won the game with ' + (inGame.timeLeftPlayer1 - inGame.timeLeftPlayer2) + "s or " + ((1 - inGame.timeLeftPlayer2 / inGame.timeLeftPlayer1) * 100).toFixed(2) + "% difference in time."
+                } else {
+                    document.querySelector("#textAnalysis").innerText = "Both players finished the game at the same time!";
                 }
                 if (time1.length < 2 || time2.length < 2) {
                     Swal.fire({
@@ -439,7 +495,7 @@ let inGame = {
                         data: {
                             labels: labels1,
                             datasets: [{
-                                label: 'Player 1 Time Per Move Comparison',
+                                label: 'Player 1 Time Per Move Comparison Chart',
                                 backgroundColor: 'green',
                                 borderColor: 'rgb(255, 99, 132)',
                                 data: time1
@@ -456,7 +512,7 @@ let inGame = {
                         data: {
                             labels: labels2,
                             datasets: [{
-                                label: 'Player 2 Time Per Move Comparison',
+                                label: 'Player 2 Time Per Move Comparison Chart',
                                 backgroundColor: 'red',
                                 borderColor: 'rgb(255, 99, 132)',
                                 data: time2
@@ -473,6 +529,37 @@ let inGame = {
     }
 
 
+}
+let sound = {
+    enabled: false,
+    endGame: function() {
+        let audio = new Audio('Sounds/endSound.wav');
+        audio.play();
+    },
+    changePlayer: function() {
+        let audio = new Audio('Sounds/changePlayer.wav');
+        audio.play();
+    },
+    checkState:function(){
+      if(document.querySelector("#soundsToggle").checked){
+        sound.enabled=true;
+      }else{
+        sound.enabled=false;
+      }
+    }
+}
+let darkTheme = {
+  enabled:false,
+  checkState:function(){
+    if(document.querySelector("#themeToggles").checked){
+      document.querySelector("body").style.backgroundColor='#282828';
+      document.querySelector("body").style.color='white';
+this.enabled=true;
+    }else{
+      document.querySelector("body").removeAttribute("style");
+     this.enabled=false;
+    }
+  }
 }
 document.body.onkeyup = function(e) {
     if (e.keyCode == 32 && !inGame.pausedState) {

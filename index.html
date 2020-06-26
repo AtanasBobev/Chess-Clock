@@ -60,12 +60,12 @@
 The first player, whose name is <input type="text" maxlength="50" class="form-control" value='Player 1' id="name1"> has <input type="number" class="form-control" id="minutesPlayer1"> minutes and <input min='0' max='9999' type="number" class="form-control" id="secondsPlayer1"> seconds with <input min='0' max='9999' type="number" class="form-control" id="additionalSeconds1"> seconds added for each move.<hr>
 The second player, whose name is <input type="text"  maxlength="50" class="form-control" value='Player 2' id="name2"> has <input type="number" class="form-control" id="minutesPlayer2"> minutes and <input min='0' max='9999' type="number" class="form-control" id="secondsPlayer2"> seconds with <input min='0' max='9999' type="number" class="form-control" id="additionalSeconds2"> seconds added for each move.<hr>
 <div class="custom-control custom-switch">
-  <input type="checkbox" class="custom-control-input" id="soundsToggle">
-  <label class="custom-control-label" for="soundsToggle">Sounds</label>
+  <input type="checkbox" class="custom-control-input" onClick='sound.checkState()' id="soundsToggle">
+  <label class="custom-control-label" onClick='sound.checkState()' for="soundsToggle">Sounds</label>
 </div>
 <div class="custom-control custom-switch">
-  <input type="checkbox" class="custom-control-input" id="themeToggles">
-  <label class="custom-control-label" for="themeToggles">Dark theme</label>
+  <input type="checkbox" onClick='darkTheme.checkState()' class="custom-control-input" id="themeToggles">
+  <label class="custom-control-label" onClick='darkTheme.checkState()' for="themeToggles">Dark theme</label>
 </div>
 
 <button onClick='setupGame.resetForm()' type="button" class="btn btn-outline-primary">Reset</button>
@@ -91,6 +91,9 @@ This will show clever information
     <center><h2 id='textAnalysis'>Loading you analysis...</h2></center>
 <canvas id="Player1TimeCanvas"></canvas>
 <canvas id="Player2TimeCanvas"></canvas>
+<img alt='Restart' id='restart2' onClick='inGame.reset(1)' src='Images/Restart.svg'>
+<img alt='Home' id='home' onClick='inGame.home()' src='Images/Home.svg'>
+
 </div>
 
   </body>

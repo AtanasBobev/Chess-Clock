@@ -137,6 +137,14 @@ let inGame = {
     initialEstablish: function() {
         this.timeLeftPlayer1 = setupGame.TimePlayer1;
         this.timeLeftPlayer2 = setupGame.TimePlayer2;
+        if(darkTheme.enabled){
+        document.querySelector("#secondClock").style.textDecoration = 'none';
+        document.querySelector("#firstClock").style.textDecoration = 'underline';
+        document.querySelector("#name1Game").style.color = 'grey';
+        document.querySelector("#name2Game").style.color = 'black';
+        document.querySelector("#secondClock").style.color = 'black';
+        document.querySelector("#firstClock").style.color = 'grey';
+      }
     },
     secondsToMinutes: function(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2)
@@ -204,47 +212,47 @@ let inGame = {
                 clearInterval(Player1Interval);
                 Player2Interval = setInterval(inGame.decreaseTimePlayer2, 1000);
                 inGame.Player1IntervalRunning = false;
-                if(!darkTheme.enabled){
-                document.querySelector("#firstClock").style.textDecoration = 'none';
-                document.querySelector("#secondClock").style.textDecoration = 'underline';
-                document.querySelector("#name1Game").style.color = 'grey';
-                document.querySelector("#name2Game").style.color = 'black';
-                document.querySelector("#secondClock").style.color = 'black';
-                document.querySelector("#firstClock").style.color = 'grey';
-              }else{
-                document.querySelector("#name1Game").style.color = 'black';
-                document.querySelector("#name2Game").style.color = 'grey';
-                document.querySelector("#secondClock").style.textDecoration = 'underline';
-                document.querySelector("#firstClock").style.textDecoration = 'none';
-                document.querySelector("#secondClock").style.color = 'grey';
-                document.querySelector("#firstClock").style.color = 'black';
-              }
+                if (!darkTheme.enabled) {
+                    document.querySelector("#firstClock").style.textDecoration = 'none';
+                    document.querySelector("#secondClock").style.textDecoration = 'underline';
+                    document.querySelector("#name1Game").style.color = 'grey';
+                    document.querySelector("#name2Game").style.color = 'black';
+                    document.querySelector("#secondClock").style.color = 'black';
+                    document.querySelector("#firstClock").style.color = 'grey';
+                } else {
+                    document.querySelector("#name1Game").style.color = 'black';
+                    document.querySelector("#name2Game").style.color = 'grey';
+                    document.querySelector("#secondClock").style.textDecoration = 'underline';
+                    document.querySelector("#firstClock").style.textDecoration = 'none';
+                    document.querySelector("#secondClock").style.color = 'grey';
+                    document.querySelector("#firstClock").style.color = 'black';
+                }
             } else {
                 time2.push((Math.abs((startTime - (new Date).getTime() / 10000))) * 10);
                 startTime = (new Date).getTime() / 10000;
                 inGame.timeLeftPlayer2 = inGame.timeLeftPlayer2 + Number(document.querySelector("#additionalSeconds2").value);
-                if(!darkTheme.enabled){
-                document.querySelector("#secondClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer2));
-                document.querySelector("#name1Game").style.color = 'black';
-                document.querySelector("#name2Game").style.color = 'grey';
-                document.querySelector("#firstClock").style.textDecoration = 'underline';
-                document.querySelector("#secondClock").style.textDecoration = 'none';
-                document.querySelector("#secondClock").style.color = 'grey';
-                document.querySelector("#firstClock").style.color = 'black';
-              }else{
-                document.querySelector("#secondClock").style.textDecoration = 'none';
-                document.querySelector("#firstClock").style.textDecoration = 'underline';
-                document.querySelector("#name1Game").style.color = 'grey';
-                document.querySelector("#name2Game").style.color = 'black';
-                document.querySelector("#secondClock").style.color = 'black';
-                document.querySelector("#firstClock").style.color = 'grey';
-              }
+                if (!darkTheme.enabled) {
+                    document.querySelector("#secondClock").innerText = inGame.secondsToMinutes(Number(inGame.timeLeftPlayer2));
+                    document.querySelector("#name1Game").style.color = 'black';
+                    document.querySelector("#name2Game").style.color = 'grey';
+                    document.querySelector("#firstClock").style.textDecoration = 'underline';
+                    document.querySelector("#secondClock").style.textDecoration = 'none';
+                    document.querySelector("#secondClock").style.color = 'grey';
+                    document.querySelector("#firstClock").style.color = 'black';
+                } else {
+                    document.querySelector("#secondClock").style.textDecoration = 'none';
+                    document.querySelector("#firstClock").style.textDecoration = 'underline';
+                    document.querySelector("#name1Game").style.color = 'grey';
+                    document.querySelector("#name2Game").style.color = 'black';
+                    document.querySelector("#secondClock").style.color = 'black';
+                    document.querySelector("#firstClock").style.color = 'grey';
+                }
                 clearInterval(Player2Interval);
                 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
                 inGame.Player1IntervalRunning = true;
             }
-            if(sound.enabled){
-              sound.changePlayer();
+            if (sound.enabled) {
+                sound.changePlayer();
             }
         } else {
             clearInterval(Player1Interval);
@@ -280,8 +288,8 @@ let inGame = {
     endGameToLobby: function(lost) {
         document.querySelector("#restart").classList.remove('d-none');
         inGame.pausedState = true;
-        if(sound.enabled){
-          sound.endGame();
+        if (sound.enabled) {
+            sound.endGame();
         }
         if (lost == 1) {
             anime({
@@ -386,12 +394,6 @@ let inGame = {
         display.showDesktopClock();
         inGame.pausedState = true;
         inGame.game = true;
-        document.querySelector("#secondClock").style.textDecoration = 'none';
-        document.querySelector("#firstClock").style.textDecoration = 'underline';
-        document.querySelector("#name1Game").style.color = 'grey';
-        document.querySelector("#name2Game").style.color = 'black';
-        document.querySelector("#secondClock").style.color = 'black';
-        document.querySelector("#firstClock").style.color = 'grey';
         Swal.fire({
             title: 'Are sure you would want to reset the game?',
             text: "",
@@ -449,7 +451,15 @@ let inGame = {
                 clearInterval(Player2Interval);
                 Player1Interval = setInterval(inGame.decreaseTimePlayer1, 1000);
                 inGame.Player1IntervalRunning = true;
-                document.querySelector("#pause").click()
+                document.querySelector("#pause").click();
+                if(darkTheme.enabled){
+                document.querySelector("#secondClock").style.textDecoration = 'none';
+                document.querySelector("#firstClock").style.textDecoration = 'underline';
+                document.querySelector("#name1Game").style.color = 'grey';
+                document.querySelector("#name2Game").style.color = 'black';
+                document.querySelector("#secondClock").style.color = 'black';
+                document.querySelector("#firstClock").style.color = 'grey';
+              }
             } else if (a != 0) {
                 display.showDesktopSummary();
                 display.hideDesktopClock();
@@ -540,30 +550,45 @@ let sound = {
         let audio = new Audio('Sounds/changePlayer.wav');
         audio.play();
     },
-    checkState:function(){
-      if(document.querySelector("#soundsToggle").checked){
-        sound.enabled=true;
-      }else{
-        sound.enabled=false;
-      }
+    checkState: function() {
+        if (document.querySelector("#soundsToggle").checked) {
+            sound.enabled = true;
+            localStorage.setItem('sounds', 'true');
+
+        } else {
+            sound.enabled = false;
+            localStorage.setItem('sounds', 'false');
+        }
     }
 }
 let darkTheme = {
-  enabled:false,
-  checkState:function(){
-    if(document.querySelector("#themeToggles").checked){
-      document.querySelector("body").style.backgroundColor='#282828';
-      document.querySelector("body").style.color='white';
-this.enabled=true;
-    }else{
-      document.querySelector("body").removeAttribute("style");
-     this.enabled=false;
+    enabled: false,
+    checkState: function() {
+        if (document.querySelector("#themeToggles").checked) {
+            document.querySelector("body").style.backgroundColor = '#282828';
+            document.querySelector("body").style.color = 'white';
+            this.enabled = true;
+            localStorage.setItem('dark', 'true');
+        } else {
+            document.querySelector("body").removeAttribute("style");
+            this.enabled = false;
+            localStorage.setItem('dark', 'false');
+        }
     }
-  }
 }
 document.body.onkeyup = function(e) {
     if (e.keyCode == 32 && !inGame.pausedState) {
         inGame.switchRole();
+    }
+}
+let localstorage = {
+    loadData: function() {
+        if (localStorage.getItem('dark')) {
+            document.querySelector("#themeToggles").click()
+        }
+        if (localStorage.getItem("sounds")) {
+            document.querySelector("#soundsToggle").click()
+        }
     }
 }
 let Player1Interval = 0,
@@ -572,3 +597,6 @@ let Player1Interval = 0,
     time2 = [],
     startTime, labels1 = [],
     labels2 = [];
+    window.onload = function(){
+      localstorage.loadData();
+    }

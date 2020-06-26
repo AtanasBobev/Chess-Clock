@@ -287,6 +287,8 @@ let inGame = {
         }
     },
     endGameToLobby: function(lost) {
+      document.querySelector("#stop").style.left='20%';
+      document.querySelector("#stop").classList.remove('d-none');
         document.querySelector("#restart").classList.remove('d-none');
         inGame.pausedState = true;
         if (sound.enabled) {

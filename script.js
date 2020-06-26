@@ -153,9 +153,10 @@ let inGame = {
         startTime = (new Date).getTime() / 10000;
         Player1Interval = setInterval(this.decreaseTimePlayer1, 1000);
         document.querySelector("#firstClock").style.textDecoration = 'underline';
-        document.querySelector("#name1Game").style.color = 'black';
-        document.querySelector("#name2Game").style.color = 'grey';
-        document.querySelector("#secondClock").style.color = 'grey';
+        document.querySelector("#name1Game").style.color = 'grey';
+        document.querySelector("#name2Game").style.color = 'black';
+        document.querySelector("#secondClock").style.color = 'black';
+
 
 
     },
